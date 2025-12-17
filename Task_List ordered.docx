@@ -1,0 +1,222 @@
+performed tasks: ✅❌
+
+1. Data ingestion & initial inspection
+(load and sanity-check before thinking)
+•	Load data from files, databases, APIs
+•	Inspect shape (rows, columns)
+•	Inspect column names
+•	Inspect data types
+•	Inspect index
+•	Check units and scales
+•	Identify keys and identifiers
+•	Determine data granularity
+•	Verify schema expectations
+________________________________________
+2. Data understanding & semantic validation
+(what does this data mean?)
+•	Column meaning validation
+•	Domain rule validation
+•	Identify categorical vs numerical vs datetime vs text
+•	Identify target variable
+•	Identify potential leakage columns
+•	Identify constant or near-constant columns
+________________________________________
+3. Data quality checks
+(is the data trustworthy?)
+•	Missing value detection
+•	Duplicate row detection
+•	Duplicate key detection
+•	Invalid category detection
+•	Out-of-range value detection
+•	Impossible value detection
+•	Cardinality inspection
+•	Class imbalance detection
+•	Referential integrity checks
+________________________________________
+4. Combining multiple datasets (data integration)
+(building the full analytical table)
+Pre-join analysis
+•	Identify join keys
+•	Validate join key data types
+•	Check key uniqueness
+•	Analyze key overlap
+•	Detect orphan keys
+•	Assess many-to-many join risk
+Row-wise combinations
+•	Concatenation (vertical)
+•	Index-aligned concatenation
+•	Schema alignment before concat
+•	Column reconciliation
+•	Deduplication after concat
+•	Temporal ordering
+Column-wise combinations
+•	Index-based joins
+•	Side-by-side concatenation
+•	Handling partial overlaps
+•	Column name conflict resolution
+Relational joins
+•	Inner / Left / Right / Outer joins
+•	One-to-one / One-to-many / Many-to-one / Many-to-many
+•	Join validation
+•	Join indicator analysis
+Time-aware joins
+•	Exact timestamp joins
+•	Nearest-key joins
+•	Forward / Backward joins
+•	Tolerance-based joins
+•	As-of joins
+•	Lag-aligned joins
+Advanced joins
+•	Multi-key joins
+•	Composite key joins
+•	Hierarchical index joins
+•	Partial key joins
+•	Conditional joins
+•	Cross joins
+Post-join validation
+•	Row count reconciliation
+•	Null inflation analysis
+•	Duplicate detection after join
+•	Key coverage analysis
+•	Leakage detection
+•	Drop helper columns
+________________________________________
+5. Target variable analysis (supervised learning)
+(anchor everything around the target early)
+•	Target distribution analysis
+•	Class balance analysis
+•	Target transformation
+•	Target outlier handling
+•	Leakage detection
+•	Temporal leakage checks
+________________________________________
+6. Missing data analysis & handling
+(understand first, fix second)
+•	Missingness mechanism analysis (MCAR, MAR, MNAR)
+•	Drop rows
+•	Drop columns
+•	Mean / Median / Mode imputation
+•	Constant value imputation
+•	Forward fill / Backward fill
+•	Group-wise imputation
+•	Model-based imputation
+•	Missing indicator creation
+________________________________________
+7. Outlier analysis & treatment
+(separate signal from pathology)
+•	IQR-based detection
+•	Z-score detection
+•	MAD detection
+•	Contextual outlier analysis
+•	Percentile capping
+•	Winsorization
+•	Clipping
+•	Transformation-based mitigation
+•	Outlier isolation
+________________________________________
+8. Statistical exploration (core EDA)
+(quantitative understanding)
+Univariate
+•	Mean, Median, Mode
+•	Variance, Standard deviation
+•	Skewness, Kurtosis
+•	Value counts
+•	Distribution shape analysis
+Bivariate / Multivariate
+•	Correlation analysis
+•	Covariance analysis
+•	Cross-tabulation
+•	Group-by aggregation
+•	Conditional statistics
+•	Target–feature relationship analysis
+________________________________________
+9. Visualization-based exploration
+(visual intuition and anomaly detection)
+•	Histograms
+•	Box plots
+•	KDE plots
+•	Scatter plots
+•	Pair plots
+•	Heatmaps
+•	Line plots
+•	Time series plots
+•	Category frequency plots
+•	Faceted plots
+________________________________________
+10. Data transformation
+(make variables model-ready)
+•	Unit conversion
+•	Log / Power transformations
+•	Box-Cox / Yeo-Johnson
+•	Standardization
+•	Normalization
+•	Robust scaling
+•	Binning / Discretization
+•	Rank transformation
+•	Smoothing (rolling, exponential)
+________________________________________
+11. Feature engineering
+(create information)
+•	Mathematical feature creation
+•	Interaction features
+•	Polynomial features
+•	Ratio and difference features
+•	Aggregation features
+•	Rolling window features
+•	Lag features
+•	Cumulative features
+•	Datetime decomposition
+•	Text feature extraction
+•	Image-derived features
+•	Geospatial features
+•	Domain-specific features
+________________________________________
+12. Encoding categorical variables
+(only after categories are stable)
+•	Rare category grouping
+•	Label encoding
+•	One-hot encoding
+•	Ordinal encoding
+•	Target encoding
+•	Frequency encoding
+•	Binary encoding
+•	Hash encoding
+________________________________________
+13. Feature selection & dimensionality reduction
+(reduce redundancy and noise)
+•	Variance thresholding
+•	Correlation-based removal
+•	Univariate statistical tests
+•	Mutual information analysis
+•	Model-based feature importance
+•	Recursive feature elimination
+•	PCA / ICA / SVD
+________________________________________
+14. Data consistency & validation
+(final guardrails)
+•	Schema validation
+•	Type coercion
+•	Range validation
+•	Constraint enforcement
+•	Business rule validation
+•	Cross-field consistency checks
+•	Temporal ordering validation
+________________________________________
+15. Dataset splitting & final preparation
+(freeze reality before modeling)
+•	Train / Validation / Test split
+•	Stratified splitting
+•	Time-based splitting
+•	Group-based splitting
+•	Cross-validation fold creation
+•	Leakage prevention checks
+•	Pipeline freezing
+________________________________________
+16. Documentation & auditability
+(so future-you doesn’t curse past-you)
+•	Assumption documentation
+•	Feature definition recording
+•	Data lineage tracking
+•	Preprocessing pipeline versioning
+•	Summary statistics snapshots
+
