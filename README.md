@@ -1,4 +1,4 @@
-# Upskills
+# List of Operations which can be performed on each data sets
 
 1. NYC TLC Taxi Trips (yellow_tripdata)
 
