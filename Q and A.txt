@@ -1,0 +1,17 @@
+what is eda what is the approach and work flow for you would use when it comes to data quality fix ?
+
+EDA, or Exploratory Data Analysis, is not just about looking at data—it’s about deeply understanding its structure, patterns, and quality before modeling.
+
+My approach is systematic:
+
+Understand the dataset – examine size, types, target variables, and the business context to frame the analysis correctly.
+
+Data quality assessment – I check for missing values, duplicates, outliers, inconsistent formats, skewed distributions, and type mismatches. Each issue is addressed thoughtfully: for example, missing values can be imputed, outliers treated or transformed, and inconsistencies standardized.
+
+Pattern exploration – I use summary statistics, correlation analysis, and visualizations like histograms, boxplots, and scatter plots to uncover trends, relationships, and anomalies.
+
+Feature engineering & transformation – I create meaningful derived features, encode categoricals, normalize or scale numerics, and ensure all transformations preserve interpretability.
+
+Validation – I verify that all fixes maintain data integrity and business logic, ensuring the dataset is clean, robust, and reliable for modeling.
+
+In short, I treat EDA as a rigorous cycle of understanding, testing, correcting, and validating the data, because model quality is only as good as the data it learns from.”
