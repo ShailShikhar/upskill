@@ -1,0 +1,277 @@
+performed tasks: ✅❌
+
+1. Data Ingestion & Initial Inspection
+(Load and sanity-check before thinking)
+•	Load data from files, databases, APIs
+•	Inspect shape (rows, columns)
+•	Inspect column names
+•	Inspect data types
+•	Inspect index
+•	Check units and scales (including normalization for units, currencies, and inflation adjustment with rate timestamp alignment)
+•	Identify keys and identifiers
+•	Determine data granularity (including explicit checks for aggregation mismatches like row vs. event vs. session vs. user)
+•	Verify schema expectations
+•	Reconciliation rules when multiple records exist per key-period
+2. Data Understanding & Semantic Validation
+(What does this data mean?)
+•	Column meaning validation
+•	Domain rule validation
+•	Identify categorical vs. numerical vs. datetime vs. text
+•	Identify target variable
+•	Identify potential leakage columns
+•	Identify constant or near-constant columns
+•	Text and ID hygiene: Canonicalization (trim, case, Unicode normalization, diacritics); ID checksum/format validation (e.g., PAN/Aadhaar formats where applicable)
+3. Data Quality Checks
+(Is the data trustworthy?)
+•	Missing value detection
+•	Duplicate row detection
+•	Duplicate key detection
+•	Invalid category detection
+•	Out-of-range value detection
+•	Impossible value detection
+•	Cardinality inspection
+•	Class imbalance detection
+•	Referential integrity checks
+•	Granularity conflicts: Explicit checks for aggregation mismatch and reconciliation
+•	Temporal data integrity: Clock skew and timezone normalization; Event sequencing correctness and latency distributions; Missing intervals and calendar anomalies (holidays, end-of-month effects)
+•	Units, currencies, and inflation: Currency conversion with rate timestamp alignment; Inflation adjustment (real vs. nominal values); Unit normalization with provenance tags
+4. Combining Multiple Datasets (Data Integration)
+(Building the full analytical table) Pre-join analysis
+•	Identify join keys
+•	Validate join key data types
+•	Check key uniqueness
+•	Analyze key overlap
+•	Detect orphan keys
+•	Assess many-to-many join risk
+Row-wise combinations
+•	Concatenation (vertical)
+•	Index-aligned concatenation
+•	Schema alignment before concat
+•	Column reconciliation
+•	Deduplication after concat
+•	Temporal ordering
+Column-wise combinations
+•	Index-based joins
+•	Side-by-side concatenation
+•	Handling partial overlaps
+•	Column name conflict resolution
+Relational joins
+•	Inner / Left / Right / Outer joins
+•	One-to-one / One-to-many / Many-to-one / Many-to-many
+•	Join validation
+•	Join indicator analysis
+Time-aware joins
+•	Exact timestamp joins
+•	Nearest-key joins
+•	Forward / Backward joins
+•	Tolerance-based joins
+•	As-of joins
+•	Lag-aligned joins
+Advanced joins
+•	Multi-key joins
+•	Composite key joins
+•	Hierarchical index joins
+•	Partial key joins
+•	Conditional joins
+•	Cross joins
+Post-join validation
+•	Row count reconciliation
+•	Null inflation analysis
+•	Duplicate detection after join
+•	Key coverage analysis
+•	Leakage detection
+•	Drop helper columns
+5. Target Variable Analysis (Supervised Learning)
+(Anchor everything around the target early)
+•	Target distribution analysis
+•	Class balance analysis
+•	Target transformation
+•	Target outlier handling
+•	Leakage detection
+•	Temporal leakage checks
+•	Class imbalance strategies: Resampling (SMOTE variants, ADASYN, Tomek links); Cost-sensitive learning and custom loss functions; Threshold tuning against business costs and prevalence
+•	Target reliability checks: Label noise audits (conflict rate, inter-rater agreement); Delayed labels and adjudication lag analysis; Label stability over time (concept drift on target)
+•	Calibration and interpretability around target: Probability calibration (Platt, Isotonic); Calibration curves, Brier score; Decision curve analysis (net benefit)
+6. Missing Data Analysis & Handling
+(Understand first, fix second)
+•	Missingness mechanism analysis (MCAR, MAR, MNAR)
+•	Drop rows
+•	Drop columns
+•	Mean / Median / Mode imputation
+•	Constant value imputation
+•	Forward fill / Backward fill
+•	Group-wise imputation
+•	Model-based imputation
+•	Missing indicator creation
+7. Outlier Analysis & Treatment
+(Separate signal from pathology)
+•	IQR-based detection
+•	Z-score detection
+•	MAD detection
+•	Contextual outlier analysis
+•	Percentile capping
+•	Winsorization
+•	Clipping
+•	Transformation-based mitigation
+•	Outlier isolation
+8. Statistical Exploration (Core EDA)
+(Quantitative understanding; deepened with advanced diagnostics) Univariate
+•	Mean, Median, Mode
+•	Variance, Standard deviation
+•	Skewness, Kurtosis
+•	Value counts
+•	Distribution shape analysis
+•	Fit candidate distributions and compare goodness-of-fit (KS test, AIC/BIC)
+•	Compute empirical quantiles and tail heaviness
+•	Check zero-inflation and spike-at-zero behavior
+Bivariate / Multivariate
+•	Correlation analysis
+•	Covariance analysis
+•	Cross-tabulation
+•	Group-by aggregation
+•	Conditional statistics
+•	Target–feature relationship analysis
+•	Use non-linear association measures (Spearman, distance correlation, HSIC)
+•	Conditional plots and partial dependence for key pairs
+•	Simpson’s paradox checks via stratified analysis
+•	Collinearity diagnostics (VIF, condition number)
+•	Partial correlations controlling for confounders
+•	Clustering tendencies (Hopkins statistic)
+•	Manifold checks (UMAP/t-SNE for structure)
+Hypothesis testing
+•	Parametric vs. non-parametric tests selected via distribution checks
+•	Multiple testing control (Bonferroni, Benjamini–Hochberg)
+•	Power analysis to gauge sample adequacy
+Causal exploration (pre-model)
+•	DAG sketching for assumed relationships
+•	Backdoor criterion considerations for confounding
+•	Instrumental variable feasibility scan
+9. Visualization-Based Exploration
+(Visual intuition and anomaly detection)
+•	Histograms
+•	Box plots
+•	KDE plots
+•	Scatter plots
+•	Pair plots
+•	Heatmaps
+•	Line plots
+•	Time series plots
+•	Category frequency plots
+•	Faceted plots
+10. Data Transformation
+(Make variables model-ready; enhanced with robustness)
+•	Unit conversion
+•	Log / Power transformations
+•	Box-Cox / Yeo-Johnson
+•	Standardization
+•	Normalization
+•	Robust scaling
+•	Binning / Discretization
+•	Rank transformation
+•	Smoothing (rolling, exponential)
+•	Learned transformations (quantile transformer)
+•	Invertibility tracking for explainability
+•	Monotonic transformations when business rules require monotonic models
+11. Feature Engineering
+(Create information; deepened with domain-specific depth)
+•	Mathematical feature creation
+•	Interaction features
+•	Polynomial features
+•	Ratio and difference features
+•	Aggregation features
+•	Rolling window features
+•	Lag features
+•	Cumulative features
+•	Datetime decomposition
+•	Text feature extraction
+•	Image-derived features
+•	Geospatial features
+•	Domain-specific features
+•	Time series specifics: Seasonality and trend decomposition (STL); Holiday/event features and business calendar encoding; Recency, frequency, monetary (RFM) features; Rolling statistics with leak-safe windows and expanding features
+•	Sequence/temporal encodings: Positional encodings and sessionization; Survival features (time-to-event, censoring indicators)
+•	Text (NLP) features: Preprocessing (stopwords, lemmatization, subword tokenization); Learned embeddings (word2vec/fastText/BERT); Topic features (LDA/NMF) and readability metrics; Text quality/noise flags (lang detect, profanity, templated spam)
+•	Image features: Pretrained backbone embeddings (ResNet/ViT); Data augmentation descriptors (flip, crop, color jitter, CutMix/MixUp); Quality metrics (blur, compression artifacts)
+•	Graph features: Centrality, PageRank, community detection labels; Edge features and motif counts
+12. Encoding Categorical Variables
+(Only after categories are stable; enhanced with complexities)
+•	Rare category grouping
+•	Label encoding
+•	One-hot encoding
+•	Ordinal encoding
+•	Target encoding
+•	Frequency encoding
+•	Binary encoding
+•	Hash encoding
+•	Nested/hierarchical encoding strategies with constraints
+•	High-cardinality safeguards (hashing with collision analysis)
+•	Drift-resilient encodings (folded target encoding with leak guards)
+13. Feature Selection & Dimensionality Reduction
+(Reduce redundancy and noise; enhanced with stability)
+•	Variance thresholding
+•	Correlation-based removal
+•	Univariate statistical tests
+•	Mutual information analysis
+•	Model-based feature importance
+•	Recursive feature elimination
+•	PCA / ICA / SVD
+•	Stability selection across resampled folds
+•	Permutation importance with group-permutation for correlated sets
+•	Redundancy pruning via clustering of features
+14. Data Consistency & Validation
+(Final guardrails)
+•	Schema validation
+•	Type coercion
+•	Range validation
+•	Constraint enforcement
+•	Business rule validation
+•	Cross-field consistency checks
+•	Temporal ordering validation
+15. Dataset Splitting & Final Preparation
+(Freeze reality before modeling)
+•	Train / Validation / Test split
+•	Stratified splitting
+•	Time-based splitting
+•	Group-based splitting
+•	Cross-validation fold creation
+•	Leakage prevention checks
+•	Pipeline freezing
+16. Documentation & Auditability
+(So future-you doesn’t curse past-you; enhanced with reproducibility basics)
+•	Assumption documentation
+•	Feature definition recording
+•	Data lineage tracking
+•	Preprocessing pipeline versioning
+•	Summary statistics snapshots
+•	Experiment tracking: Parameters, code version, data snapshot hash, environment; Artifact management (models, metrics, plots)
+17. Modeling, Evaluation, and Baselines
+(New section: Build and assess models with rigor)
+•	Baselines: Naive predictors (mean/median, last value, seasonal naive); Simple linear/logistic baseline for sanity check
+•	Metric strategy: Metric selection aligned to objective (F1 vs. AUPRC for rarity, MAE vs. MAPE); Confidence intervals for metrics (bootstrap); Uplift metrics for treatment effect models
+•	Validation rigor: Nested CV for unbiased hyperparameter tuning; Group-aware CV (customer, product, geography groups); Time-aware CV (rolling origin, blocked folds)
+•	Robustness checks: Stress tests with adversarial/edge-case slices; Slice metrics and fairness dashboards; Sensitivity analysis to random seeds
+•	Interpretability: Global and local explanations (SHAP, permutation); Stability of explanations across folds; Monotonic constraints where needed
+18. Governance, Fairness, Privacy, and Compliance
+(New section: Ensure ethical and compliant practices)
+•	Fairness: Bias detection (demographic parity, equalized odds, calibration across groups); Mitigation (reweighting, adversarial debiasing, post-processing); Stakeholder review and sign-off
+•	Privacy: PII detection and masking/tokenization; Differential privacy feasibility and privacy budgets; Secure access controls and audit trails
+•	Compliance and ethics: Data usage permissions and purpose limitation; Model cards and datasheets for datasets; Retention policies and right-to-erasure workflows
+19. Reproducibility, Pipelines, and MLOps
+(New section: Operationalize for scalability)
+•	Testing: Data unit tests (schema, ranges, referential integrity); Pipeline unit/integration tests and golden datasets; Backtesting harness for time-aware pipelines
+•	Operationalization: Feature store design and online/offline parity checks; Inference latency, throughput, and cost budgets; Resource profiling (CPU/GPU/memory)
+•	Deployment strategies: Shadow, canary, and phased rollouts; Rollback plans and model version pinning; A/B testing with guardrails
+20. Monitoring, Drift, and Lifecycle Management
+(New section: Sustain model performance over time)
+•	Drift detection: Data drift (PSI/JS distance), concept drift (performance decay); Target drift and calibration drift
+•	Production health: Alerting on slice performance and upstream schema changes; Input validation and quarantine for bad records; Feedback loops and human-in-the-loop review
+•	Lifecycle: Retraining triggers and cadence; Decommissioning criteria and archival; Change-impact assessments before updates
+Additional Pointers on Missed Elements
+Your original plans cover a robust ML pipeline, but here are some potential gaps or enhancements to consider for completeness:
+•	Security and Adversarial Robustness: Beyond privacy, add checks for adversarial attacks on models (e.g., evasion or poisoning) and secure data pipelines against breaches.
+•	Scalability for Big Data: Include distributed processing frameworks (e.g., Spark, Dask) for handling large-scale data ingestion, transformations, and feature engineering.
+•	AutoML Integration: In modeling, consider automated tools for hyperparameter optimization (e.g., Optuna, Hyperopt) or feature selection to speed up iterations.
+•	Environmental Impact: Track and minimize carbon footprint of training (e.g., using efficient hardware or model compression techniques).
+•	Collaboration Tools: Integrate version control for code (Git) and data (DVC), plus team workflows like pull requests for pipeline changes.
+•	Domain-Specific Extensions: For regulated industries (e.g., healthcare, finance), add audit logs for compliance with standards like GDPR, HIPAA, or SOX.
+•	Error Handling in Pipelines: Explicit strategies for handling failures during ingestion or joins, such as retry mechanisms or fallback data sources.
+

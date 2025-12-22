@@ -1,0 +1,99 @@
+1. Data Ingestion & Initial Inspection
+Loading raw datasets (Parquet trips, zone lookup CSV, weather CSV)
+Loading data means reading each source in its native format without modifying it. The core assumption is that ingestion itself does not alter meaning or structure. If ingestion is done incorrectly—wrong parser, wrong encoding, wrong schema inference—everything downstream becomes unreliable while still appearing “valid.” By loading each dataset separately and in its native format, we preserve original types and structure, which allows us to reason accurately about what the data truly contains. This step matters because every validation later depends on the raw data being faithfully represented.
+________________________________________
+Inspecting shapes (rows and columns)
+Inspecting dataset shape means checking how many rows and columns exist in each table. The assumption is that row counts roughly match expectations given the data source and time period. If shapes are wildly off, it signals partial ingestion, truncation, or duplication. By checking shapes early, we detect ingestion failures or schema drift before wasting time on analysis. Downstream, this ensures that joins, aggregations, and metrics are built on complete data rather than silently broken subsets.
+________________________________________
+Inspecting column names
+Looking at column names is about understanding what variables the dataset claims to represent. The assumption is that column names are stable, meaningful, and consistent with documentation. If names are missing, renamed, or subtly altered, models may break or—worse—use the wrong signals. By inspecting column names early, we align expectations with reality and detect schema drift. This matters later because feature engineering, joins, and validations rely on column identity, not just position.
+________________________________________
+Inspecting data types
+Inspecting data types means verifying how values are represented in memory—numeric, categorical, datetime, or text. The assumption is that the type reflects semantic meaning. If numeric values are stored as strings or timestamps as objects, comparisons and aggregations behave incorrectly. By checking dtypes early, we detect hidden parsing issues before they contaminate logic. Downstream, correct dtypes are essential for time operations, statistical checks, and model inputs.
+________________________________________
+Inspecting index meaning
+Checking the index means understanding whether it carries semantic meaning or is just a row counter. The assumption is that the index is not encoding business logic unless explicitly designed to do so. If timestamps or IDs are silently used as indexes, operations like slicing or joins can behave unexpectedly. By inspecting the index early, we avoid accidental reliance on implicit structure. This matters later when sorting, merging, or time-slicing data.
+________________________________________
+Parsing pickup and dropoff timestamps
+Parsing timestamps means converting raw strings into proper datetime objects. The assumption is that time strings represent real event times and should be comparable and orderable. If timestamps remain as strings, comparisons become lexicographic and durations become meaningless. Parsing them early allows us to validate event order, compute durations, and align datasets. Downstream, every time-based feature and aggregation depends on this step being correct.
+________________________________________
+Normalizing timezones across datasets
+Timezone normalization means ensuring all timestamps refer to the same clock reference. The assumption is that events from different systems occurred in the same real-world timeline. If timezones differ or are missing, joins can leak future information or misalign events. By explicitly localizing timestamps, we enforce temporal consistency. This is critical later for forecasting, hourly aggregation, and preventing data leakage.
+________________________________________
+Checking units and scales (distance, fare, time)
+Checking units means verifying that numeric values are expressed in expected real-world units. The assumption is that a mile is a mile, a dollar is a dollar, and time is measured consistently. If units are misunderstood, models learn distorted relationships. By inspecting ranges and distributions early, we ensure physical plausibility. Downstream, this protects models from learning nonsense correlations.
+________________________________________
+Identifying keys and identifiers
+Identifying keys means understanding which columns identify entities or relationships, even if no formal primary key exists. The assumption is that some combination of fields approximates real-world identity. If identity is misunderstood, deduplication and joins become arbitrary. By explicitly identifying identifiers, we impose structure where the data lacks it. This matters later for duplicate detection and dimensional joins.
+________________________________________
+Detecting non-unique keys
+Detecting non-unique keys means checking whether supposed identifiers repeat. The assumption is that dimension keys should be unique and event keys may not be. If uniqueness is violated unexpectedly, joins can multiply rows and corrupt metrics. By testing uniqueness explicitly, we prevent silent row explosion. Downstream, this ensures aggregation correctness.
+________________________________________
+Determining granularity
+Granularity describes what one row represents in reality. The assumption is that each row corresponds to a single, well-defined event or observation. If granularity is misunderstood, aggregations and joins distort meaning. By explicitly stating granularity early, we anchor all future transformations. This is foundational for time-series modeling and demand estimation.
+________________________________________
+Detecting aggregation mismatches (trip vs hourly weather)
+Aggregation mismatch means recognizing that different datasets summarize reality at different levels. The assumption is that joins respect these levels. If event-level data is joined naively to aggregated data, duplication or leakage occurs. By detecting this mismatch, we define controlled reconciliation rules. This ensures downstream features reflect reality rather than arithmetic artifacts.
+________________________________________
+Verifying schema expectations
+Schema verification means checking whether required columns exist and optional ones behave as expected. The assumption is that upstream systems follow contracts. When they don’t, models break subtly. By verifying schema explicitly, we fail fast instead of debugging silent errors later. This stabilizes pipelines over time.
+________________________________________
+Defining reconciliation rules for multiple records per period
+Reconciliation rules define how to collapse multiple records into one representation. The assumption is that aggregation choices encode domain meaning. Without explicit rules, aggregation becomes arbitrary. By defining them early, we ensure consistency across experiments. This directly impacts feature stability and reproducibility.
+________________________________________
+2. Data Understanding & Semantic Validation
+Validating column meanings
+Validating meaning means understanding what a column represents in the real world, not just numerically. The assumption is that names reflect semantics. If misunderstood, features may encode the wrong concept. By validating meaning, we prevent misuse such as treating outcomes as inputs. This protects causal structure in models.
+________________________________________
+Validating domain rules
+Domain rules are real-world constraints like non-negative fares and forward-moving time. The assumption is that the data represents physical reality. Violations indicate corruption, not rare behavior. By enforcing domain rules, we separate valid signal from invalid noise. Downstream, this preserves model trustworthiness.
+________________________________________
+Classifying columns by semantic type
+Semantic classification groups columns by how they should be treated analytically. The assumption is that different data types require different handling. Misclassification leads to improper scaling or encoding. By classifying early, we enable correct preprocessing pipelines. This affects both performance and interpretability.
+________________________________________
+Identifying potential target variables
+Identifying targets means deciding what the model should predict. The assumption is that prediction goals are explicit. Without this, leakage and evaluation mistakes occur. By defining targets early, we align feature selection and validation strategy. Everything downstream depends on this decision.
+________________________________________
+Identifying leakage columns
+Leakage columns contain information unavailable at prediction time. The assumption is that models should only see past or present data. If leakage exists, metrics become meaningless. By identifying and excluding such columns, we ensure honest evaluation. This is critical for production reliability.
+________________________________________
+Identifying constant or near-constant columns
+Constant columns carry no information. The assumption is that features should vary meaningfully. Near-constant features add noise and instability. By identifying them, we simplify models and reduce overfitting. This improves generalization.
+________________________________________
+Text and ID hygiene
+Hygiene means normalizing strings and identifiers. The assumption is that formatting differences are not meaningful. If ignored, categories fragment and cardinality explodes. By cleaning text early, we preserve semantic unity. This directly affects encoding quality.
+________________________________________
+Canonicalizing categorical values
+Canonicalization means mapping categories to consistent representations. The assumption is that equivalent values should be treated identically. Without this, models learn artificial distinctions. By canonicalizing categories, we improve signal clarity and model robustness.
+________________________________________
+3. Data Quality Checks
+Missing value detection
+Missing value detection identifies absent data and its structure. The assumption is that missingness is informative. Blind imputation hides patterns. By measuring missingness first, we choose appropriate strategies. This impacts bias and variance downstream.
+________________________________________
+Duplicate row and trip detection
+Duplicate detection ensures events are not counted multiple times. The assumption is that each row represents a unique event. If violated, metrics inflate. By defining identity and checking duplicates, we protect distributions and aggregates.
+________________________________________
+Invalid category detection
+Invalid categories signal schema drift or corruption. The assumption is that categorical domains are finite and known. Unexpected values require investigation. Detecting them early prevents encoding failures and silent misclassification.
+________________________________________
+Out-of-range vs impossible values
+Out-of-range values may be rare but real; impossible values are always errors. The assumption is that models should learn from reality, not corruption. By separating the two, we avoid discarding valid extremes while removing nonsense. This preserves signal integrity.
+________________________________________
+Cardinality inspection
+Cardinality measures category diversity. The assumption is that encoding strategy must match cardinality. High-cardinality features need care. By inspecting cardinality, we prevent dimensional explosions and poor generalization.
+________________________________________
+Class imbalance detection
+Class imbalance affects learning dynamics. The assumption is that models optimize what they see most. If imbalance is ignored, minority cases are neglected. Detecting it early informs sampling and metric choices.
+________________________________________
+Referential integrity checks
+Referential integrity ensures keys correctly reference dimension tables. The assumption is that relationships are valid. Broken references cause data loss during joins. By checking integrity early, we ensure complete and accurate merges.
+________________________________________
+Granularity conflict checks
+Granularity conflicts arise when datasets represent reality at different resolutions. The assumption is that joins respect these resolutions. Detecting conflicts prevents duplication and leakage. This safeguards feature correctness.
+________________________________________
+Temporal integrity checks
+Temporal integrity ensures time flows correctly and continuously. The assumption is that event order matters. Clock skew, missing periods, or impossible durations break time-series logic. By validating temporal integrity, we protect forecasting and aggregation accuracy.
+________________________________________
+Calendar anomaly detection
+Calendar anomalies capture human behavior patterns. The assumption is that time is not uniform. Weekends, holidays, and month-ends affect demand. By explicitly modeling these effects, we allow models to learn structured seasonality instead of guessing.
+
