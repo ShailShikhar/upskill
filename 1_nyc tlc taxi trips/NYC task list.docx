@@ -18,71 +18,71 @@ ________________________________________
 •	Identify keys and identifiers ✅
 •	Detect non-unique keys ✅
 •	Determine granularity (trip-level events) ✅
-•	Detect aggregation mismatches (trip vs hourly weather)
-•	Verify schema expectations
-•	Reconciliation rules when multiple records exist per key-period
+•	Detect aggregation mismatches (trip vs hourly weather)✅
+•	Verify schema expectations✅
+•	Reconciliation rules when multiple records exist per key-period✅
 ________________________________________
 2. Data Understanding & Semantic Validation
-•	Validate column meanings (fare vs total_amount, distance semantics)
-•	Validate domain rules:
+•	Validate column meanings (fare vs total_amount, distance semantics)✅
+•	Validate domain rules:✅
     o	fare ≥ 0
     o	distance ≥ 0
     o	dropoff ≥ pickup
-•	Classify columns (numeric / categorical / datetime / text)
-•	Identify potential target variables:
+•	Classify columns (numeric / categorical / datetime / text)✅
+•	Identify potential target variables:✅
     o	fare
     o	duration
     o	hourly demand
-•	Identify potential leakage columns
-•	Identify constant / near-constant columns
-•	Text & ID hygiene:
+•	Identify potential leakage columns✅
+•	Identify constant / near-constant columns✅
+•	Text & ID hygiene:✅
     o	trim whitespace
     o	enforce casing
     o	validate ID formats
-•	Canonicalize categorical values
+•	Canonicalize categorical values✅
 ________________________________________
 3. Data Quality Checks
-•	Missing value detection
-•	Duplicate row detection
-•	Duplicate trip detection (same key-time window)
-•	Duplicate key detection
-•	Invalid category detection (payment types, rate codes)
-•	Out-of-range value detection
-•	Impossible value detection
-•	Cardinality inspection (zones, vendors)
-•	Class imbalance detection
-•	Referential integrity checks (zone IDs)
-•	Granularity conflict checks
-•	Temporal data integrity:
+•	Missing value detection✅
+•	Duplicate row detection✅
+•	Duplicate trip detection (same key-time window)✅
+•	Duplicate key detection✅
+•	Invalid category detection (payment types, rate codes)✅
+•	Out-of-range value detection✅
+•	Impossible value detection✅
+•	Cardinality inspection (zones, vendors)✅
+•	Class imbalance detection✅
+•	Referential integrity checks (zone IDs)✅
+•	Granularity conflict checks✅
+•	Temporal data integrity:✅
     o	clock skew detection
     o	event sequencing correctness
     o	latency distributions
     o	missing hours/days
-•	Calendar anomaly detection:
+•	Calendar anomaly detection:✅
     o	weekends
     o	holidays
     o	end-of-month effects
 ________________________________________
 4. Combining Multiple Datasets (Data Integration)
-Pre-Join Analysis
+Pre-Join Analysis✅
 •	Identify join keys
 •	Validate join key data types
 •	Check key uniqueness
 •	Analyze key overlap
 •	Detect orphan keys
 •	Assess many-to-many join risk
-Row-wise Combinations
+Row-wise Combinations✅
 •	Vertical concatenation (if multiple months used)
 •	Schema alignment before concat
 •	Column reconciliation
 •	Deduplication after concat
 •	Temporal ordering
-Column-wise Combinations
+Column-wise Combinations✅
 •	Index-based joins
 •	Side-by-side concatenation
 •	Handling partial overlaps
 •	Column name conflict resolution
-Relational Joins (Zones)
+Relational Joins (Zones)✅
 •	Inner join
 •	Left join
 •	Right join (diagnostic)
@@ -91,7 +91,7 @@ Relational Joins (Zones)
 •	One-to-many validation
 •	Join indicator analysis
 •	Join validation rules
-Time-Aware Joins (Weather)
+Time-Aware Joins (Weather)✅
 •	Exact timestamp joins (failure case)
 •	Nearest-key joins
 •	Forward joins
@@ -100,12 +100,12 @@ Time-Aware Joins (Weather)
 •	As-of joins
 •	Lag-aligned joins
 •	Causality validation (no future weather)
-Advanced Joins
+Advanced Joins✅
 •	Multi-key joins
 •	Composite key joins
 •	Conditional joins
 •	Cross joins (diagnostic only)
-Post-Join Validation
+Post-Join Validation✅
 •	Row count reconciliation
 •	Null inflation analysis
 •	Duplicate creation detection

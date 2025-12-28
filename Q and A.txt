@@ -15,3 +15,8 @@ Feature engineering & transformation – I create meaningful derived features, e
 Validation – I verify that all fixes maintain data integrity and business logic, ensuring the dataset is clean, robust, and reliable for modeling.
 
 In short, I treat EDA as a rigorous cycle of understanding, testing, correcting, and validating the data, because model quality is only as good as the data it learns from.”
+
+What lllm tools di you use and how you use it.
+name
+Why 
+advantages
