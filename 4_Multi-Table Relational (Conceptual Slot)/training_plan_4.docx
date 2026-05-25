@@ -1,0 +1,186 @@
+COMPLETE TASK LIST — DATASET 4
+________________________________________
+1. Data Ingestion & Relational Sanity
+•	Load each table independently
+•	Inspect schema per table
+•	Inspect primary keys
+•	Inspect foreign keys
+•	Validate data types across tables
+•	Check index semantics
+•	Detect duplicate primary keys
+•	Validate surrogate vs natural keys
+•	Inspect row counts and growth rates
+•	Memory footprint inspection
+🚨 Titanic trap avoided: One CSV ≠ one truth.
+________________________________________
+2. Entity & Granularity Mapping (Critical)
+•	Define each entity:
+o	user
+o	transaction
+o	product
+o	event
+•	Map granularity per table:
+o	users → user-level
+o	transactions → order-level
+o	events → event-level
+•	Detect mixed granularity columns
+•	Identify bridge tables
+•	Identify fan-out risks
+•	Document allowed aggregations
+•	Identify entity lifecycle boundaries
+________________________________________
+3. Semantic & Business Validation
+•	Validate column meanings
+•	Validate business rules:
+o	transaction total ≥ sum(items)
+o	event timestamps ≤ transaction timestamps
+•	Currency & unit consistency
+•	Validate boolean logic (refunds, cancellations)
+•	Validate state transitions (view → cart → purchase)
+•	Detect logically impossible paths
+________________________________________
+4. Data Quality in Relational Context
+•	Missing FK detection
+•	Orphan record detection
+•	Duplicate natural keys
+•	Cardinality inspection per relationship
+•	Many-to-many detection
+•	Referential integrity enforcement
+•	Temporal integrity across tables
+•	Late-arriving records detection
+________________________________________
+5. Pre-Join Analysis (Mandatory)
+•	Choose join direction intentionally
+•	Validate join key types
+•	Check join key uniqueness on both sides
+•	Analyze key overlap ratios
+•	Simulate joins with indicators
+•	Estimate row explosion risk
+•	Define aggregation strategy before join
+🚨 Temporal dataset trap avoided: time is not the only axis.
+________________________________________
+6. Row-Wise Combinations
+•	Vertical concatenation (partitioned data)
+•	Schema alignment
+•	Column reconciliation
+•	Deduplication strategy
+•	Temporal ordering post-concat
+________________________________________
+7. Column-Wise & Relational Joins
+Standard Joins
+•	Inner join (diagnostic)
+•	Left join (default but dangerous)
+•	Right join (diagnostic)
+•	Outer join (debugging only)
+Cardinality Validation
+•	One-to-one
+•	One-to-many
+•	Many-to-one
+•	Many-to-many (explicitly documented)
+Join Validation
+•	validate= usage (pandas)
+•	Join indicator analysis
+•	Row count reconciliation
+________________________________________
+8. Time-Aware Relational Joins
+•	As-of joins (events → transactions)
+•	Validity-window joins (promotions)
+•	Lag-aligned joins
+•	Forward-only joins (causal)
+•	Overlapping window detection
+________________________________________
+9. Post-Join Validation & Damage Control
+•	Row inflation analysis
+•	Null inflation analysis
+•	Duplicate creation detection
+•	Key coverage analysis
+•	Leakage detection
+•	Drop helper columns
+•	Re-establish entity identity
+________________________________________
+10. Target Definition in Relational World
+•	Choose target entity:
+o	user-level churn
+o	transaction fraud
+o	conversion
+•	Label construction logic
+•	Temporal alignment of labels
+•	Multi-table leakage detection
+•	Label stability checks
+________________________________________
+11. Aggregation Engineering (Where Most Bugs Live)
+•	Event → user aggregation
+•	Transaction → user aggregation
+•	Product → user aggregation
+•	Windowed aggregations
+•	Causal cutoff enforcement
+•	Multiple aggregation resolutions
+•	Feature explosion control
+•	Aggregation leakage audits
+________________________________________
+12. Missing Data (Relational Meaning)
+•	Missing because “not applicable” vs “unknown”
+•	Structural missingness detection
+•	Aggregation-induced missingness
+•	Missing indicators by source table
+•	Impact analysis of join-induced nulls
+________________________________________
+13. Outlier Detection (Relational)
+•	Transaction amount outliers
+•	Event burst detection
+•	User-level behavioral anomalies
+•	Contextual outliers by segment
+•	Fraud-like patterns (diagnostic only)
+________________________________________
+14. EDA Across Entities
+•	Distribution per entity
+•	Cross-entity correlations
+•	Behavioral segmentation
+•	Funnel analysis
+•	Cohort analysis
+•	Survival curves (users)
+________________________________________
+15. Feature Engineering (Relational)
+•	RFM features
+•	Session features
+•	Conversion rates
+•	Behavioral ratios
+•	Temporal decay features
+•	Hierarchical aggregations
+•	Cross-entity interactions
+________________________________________
+16. Encoding at Scale
+•	High-cardinality handling
+•	Entity embeddings (conceptual)
+•	Target encoding with grouping constraints
+•	Frequency encoding
+•	Hash encoding diagnostics
+•	Drift-aware encodings
+________________________________________
+17. Feature Selection (Relational Stability)
+•	Redundancy pruning across entities
+•	Stability across time slices
+•	Group-permutation importance
+•	Leakage-resistant importance
+•	Aggregation depth pruning
+________________________________________
+18. Splitting & Evaluation (Relational + Temporal)
+•	Entity-based splits
+•	Time-aware splits
+•	Group-aware CV
+•	Leakage diagnostics via performance jumps
+•	Slice metrics by entity
+________________________________________
+19. Modeling & Evaluation
+•	Baseline models
+•	Tree-based relational models
+•	Error analysis by entity
+•	Bias & variance across segments
+•	Interpretability per entity
+________________________________________
+What This Dataset Teaches That Others Cannot
+•	Joins create data, they don’t just combine it
+•	Aggregations are irreversible modeling decisions
+•	Cardinality errors look like great performance
+•	Leakage hides in relationships, not columns
+

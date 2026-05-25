@@ -1,0 +1,191 @@
+COMPLETE TASK LIST — DATASET 3
+
+Datasets : Kaggle (Walmart sales data)
+________________________________________
+1. Data Ingestion & Temporal Sanity Checks
+•	Load daily sales data
+•	Load calendar data (holidays, events)
+•	Load promotions/pricing data
+•	Inspect shapes and schemas
+•	Parse dates explicitly
+•	Enforce timezone consistency
+•	Sort strictly by time
+•	Verify monotonic time index
+•	Detect duplicate (date, store, item) keys
+•	Validate temporal granularity (daily vs weekly)
+•	Detect implicit aggregation (daily totals vs transactions)
+•	Validate units:
+o	Quantity
+o	Revenue
+o	Price
+•	Identify temporal keys vs entity keys
+🚨 Titanic trap avoided: Row order now matters.
+________________________________________
+2. Temporal Data Understanding & Semantics
+•	Define prediction target:
+o	next-day sales
+o	next-week demand
+•	Identify forecast horizon
+•	Identify availability lag (labels known when?)
+•	Identify features known at prediction time
+•	Identify forbidden future features
+•	Validate business logic:
+o	promotions start/end dates
+o	stockout indicators
+•	Separate event-time vs observation-time semantics
+________________________________________
+3. Temporal Data Quality Checks
+•	Missing date detection
+•	Missing entity-time combinations
+•	Duplicate temporal records
+•	Temporal out-of-order events
+•	Negative sales detection
+•	Stockout vs zero-sales disambiguation
+•	Calendar continuity checks
+•	Holiday alignment validation
+•	Sudden regime shifts detection
+•	Latency distribution analysis
+________________________________________
+4. Combining Multiple Datasets (Time-Aware Integration)
+Pre-Join Temporal Analysis
+•	Validate join keys including time
+•	Check alignment resolution (day/hour)
+•	Identify many-to-many temporal join risks
+•	Detect overlapping validity windows
+•	Analyze key coverage across time
+Relational Joins
+•	Left joins for enrichment
+•	Join indicator diagnostics
+•	Orphan record detection
+•	Row explosion detection
+Time-Aware Joins (Critical)
+•	Exact timestamp joins (failure case)
+•	As-of joins (canonical)
+•	Forward-only joins (causal)
+•	Backward joins (diagnostic)
+•	Tolerance-window joins
+•	Lag-aligned joins
+•	Validity-interval joins (promo windows)
+🚨 Titanic trap avoided: “Merge works” ≠ “Join is valid”.
+________________________________________
+5. Target Variable Analysis (Temporal)
+•	Target distribution over time
+•	Seasonality in target
+•	Trend detection
+•	Target volatility analysis
+•	Zero-inflation detection
+•	Demand intermittency classification
+•	Target stability across windows
+•	Horizon-dependent difficulty analysis
+________________________________________
+6. Temporal Missing Data Handling
+•	Missing dates vs missing values
+•	Forward fill (with causal constraints)
+•	Backward fill (diagnostic only)
+•	Rolling-window imputation
+•	Seasonal imputation
+•	Group-wise temporal imputation
+•	Missingness indicators
+•	Imputation leakage audits
+________________________________________
+7. Temporal Outlier Analysis
+•	Spike detection
+•	Level-shift detection
+•	Contextual outliers (seasonal-aware)
+•	Promotion-driven outliers
+•	Winsorization vs isolation
+•	Robust trend extraction
+•	Outlier impact on rolling features
+________________________________________
+8. Time-Series EDA (Statistical)
+•	Trend decomposition (STL)
+•	Seasonal strength quantification
+•	Autocorrelation (ACF)
+•	Partial autocorrelation (PACF)
+•	Lag relevance analysis
+•	Cross-correlation with exogenous variables
+•	Stationarity diagnostics
+•	Regime segmentation
+🚨 Titanic trap avoided: Correlation ≠ contemporaneous relevance.
+________________________________________
+9. Visualization-Based Temporal Exploration
+•	Time-series plots
+•	Seasonal subseries plots
+•	Lag plots
+•	Heatmaps (day-of-week × week-of-year)
+•	Rolling statistic plots
+•	Promotion overlay plots
+•	Faceted entity-level plots
+________________________________________
+10. Temporal Data Transformations
+•	Log / Box-Cox transforms
+•	Differencing
+•	Seasonal differencing
+•	Rolling normalization
+•	Expanding statistics
+•	Detrending
+•	Re-trending after modeling
+•	Invertibility tracking
+________________________________________
+11. Time-Aware Feature Engineering (The Core)
+•	Lag features (t-1, t-7, t-28)
+•	Rolling mean/std/min/max (leak-safe)
+•	Expanding window features
+•	Trend features
+•	Seasonal indicators
+•	Holiday distance features
+•	Promotion recency features
+•	Price elasticity proxies
+•	Stockout flags
+•	Event countdown features
+🚨 Titanic trap avoided: Groupby without time guards.
+________________________________________
+12. Encoding in Temporal Context
+•	Entity encoding (store/item)
+•	Frequency encoding (time-aware)
+•	Target encoding with rolling folds
+•	Embedding-based encodings (optional)
+•	Drift-resilient encoding checks
+•	Stability across time splits
+________________________________________
+13. Feature Selection (Temporal Stability)
+•	Lag relevance pruning
+•	Rolling-window importance stability
+•	Permutation importance with blocking
+•	Redundancy across lags
+•	Feature decay analysis
+________________________________________
+14. Temporal Consistency & Validation
+•	Feature availability audits
+•	No-future-data enforcement
+•	Temporal ordering validation
+•	Cross-field temporal consistency
+•	Business-rule enforcement over time
+________________________________________
+15. Dataset Splitting (Where Titanic Intuition Dies)
+•	Random split (explicitly wrong)
+•	Time-based split
+•	Rolling-origin evaluation
+•	Expanding window CV
+•	Blocked CV
+•	Horizon-aware evaluation
+•	Leakage diagnostics via performance spikes
+________________________________________
+16. Modeling & Evaluation (Temporal)
+•	Naive baseline (last value, seasonal naive)
+•	Moving average baseline
+•	Linear autoregressive models
+•	Tree-based models with lag features
+•	Error metrics by horizon
+•	Residual autocorrelation analysis
+•	Error stability over time
+•	Slice metrics by season/entity
+•	Forecast bias analysis
+________________________________________
+What This Dataset Teaches That Titanic Cannot
+•	Why preprocessing is modeling
+•	Why joins are causal decisions
+•	Why “good CV score” can be meaningless
+•	Why leakage hides in rolling windows
+•	Why temporal validation is non-negotiable
+

@@ -1,5 +1,5 @@
 what is eda what is the approach and work flow for you would use when it comes to data quality fix ?
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 EDA, or Exploratory Data Analysis, is not just about looking at data—it’s about deeply understanding its structure, patterns, and quality before modeling.
 
 My approach is systematic:
@@ -16,7 +16,192 @@ Validation – I verify that all fixes maintain data integrity and business logi
 
 In short, I treat EDA as a rigorous cycle of understanding, testing, correcting, and validating the data, because model quality is only as good as the data it learns from.”
 
-What lllm tools di you use and how you use it.
-name
-Why 
-advantages
+What lllm tools did you use and how you use it.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. For Coding & Development
+GitHub Copilot
+
+Use Case: Real-time code completion, boilerplate generation, unit test writing
+Why: Native IDE integration, understands current file context
+Advantage: 40% faster development, learns team coding patterns, instant suggestions
+
+Claude (Sonnet/Opus)
+
+Use Case: Complex refactoring, system design, architectural decisions, code reviews
+Why: Superior reasoning for complex logic, better at understanding nuanced requirements
+Advantage: Excellent at explaining trade-offs, handles multi-file changes, strong debugging
+
+Cursor AI
+
+Use Case: AI-first code editor for full project development
+Why: Codebase-aware suggestions, multi-file editing
+Advantage: Context of entire project, cmd+K for inline edits
+
+
+2. For Documentation
+Google Gemini 1.5 Pro
+
+Use Case: Large codebase documentation, technical manuals, comprehensive API docs
+Why: 1M+ token context - processes entire repositories at once
+Advantage: Maintains consistency across massive codebases, cost-effective for bulk processing, excellent cross-file referencing
+
+ChatGPT (GPT-4)
+
+Use Case: Quick README files, focused module documentation
+Why: Fast, reliable for smaller scoped documentation tasks
+Advantage: High quality output, good formatting, quick turnaround
+
+
+3. For Data Analysis & Insights
+Claude with Artifacts
+
+Use Case: Data visualization, interactive analysis, creating reports
+Why: Can generate working code with visualizations in real-time
+Advantage: Creates executable analysis tools, better data interpretation
+
+ChatGPT (Advanced Data Analysis)
+
+Use Case: Statistical analysis, data cleaning, pattern discovery
+Why: Built-in Python environment, file upload capability
+Advantage: Direct data manipulation, generates charts, iterative analysis
+
+
+4. For Production Applications
+OpenAI API (GPT-4/GPT-4 Turbo)
+
+Use Case: Customer-facing chatbots, content generation pipelines, high-reliability systems
+Why: Production-grade SLA, consistent performance, enterprise support
+Advantage: Function calling, JSON mode, proven at scale, 99.9% uptime
+
+Anthropic Claude API (Sonnet 4)
+
+Use Case: Complex reasoning tasks, long-context applications (200K tokens), safety-critical apps
+Why: Best-in-class for reasoning and following complex instructions
+Advantage: Lower hallucination rate, better refusal handling, constitutional AI approach
+
+Google Gemini API
+
+Use Case: Multimodal applications (text + image + video), cost-sensitive high-volume tasks
+Why: Native multimodal understanding, competitive pricing
+Advantage: Process images/videos natively, large context at lower cost
+
+
+5. For Building LLM Applications
+LangChain
+
+Use Case: RAG systems, agents with tool usage, multi-step workflows
+Why: Need orchestration layer for complex LLM workflows
+Advantage: Provider-agnostic, extensive integrations, reusable components
+
+LlamaIndex
+
+Use Case: Document search, knowledge base creation, specialized RAG
+Why: Better for data-centric applications, optimized for retrieval
+Advantage: Superior indexing strategies, better for structured data
+
+
+6. For Cost Optimization
+Groq API
+
+Use Case: High-speed inference for simple tasks, real-time applications
+Why: Extremely fast token generation (500+ tokens/sec)
+Advantage: 10x faster than standard APIs, low latency critical apps
+
+Open Source (Llama 3, Mistral via Ollama/HuggingFace)
+
+Use Case: Classification, sentiment analysis, high-volume simple tasks, data privacy needs
+Why: No per-token costs, on-premise deployment
+Advantage: Full control, no data leaves infrastructure, unlimited usage
+
+GPT-3.5 Turbo / Claude Haiku
+
+Use Case: Simple queries, high-volume low-complexity tasks
+Why: 10x cheaper than flagship models
+Advantage: Good enough for 70% of use cases, massive cost savings
+
+
+7. For Semantic Search & Embeddings
+OpenAI Embeddings (text-embedding-3)
+
+Use Case: General purpose semantic search, document similarity
+Why: Industry standard, reliable, well-documented
+Advantage: Good balance of quality and cost
+
+Cohere Embed
+
+Use Case: Multilingual search, specialized retrieval tasks
+Why: Better for non-English languages, optimized for search
+Advantage: Superior multilingual performance, reranking models
+
+Vector Databases:
+
+Pinecone - Managed, easy to scale, good for production
+Weaviate - Open source, hybrid search, self-hosted control
+ChromaDB - Lightweight, perfect for prototyping
+
+
+8. For Specialized Use Cases
+Perplexity API
+
+Use Case: Research tasks requiring real-time web information
+Why: Built-in web search, citation generation
+Advantage: No need to build RAG, provides sources automatically
+
+Anthropic Claude (Extended Context)
+
+Use Case: Legal document analysis, research paper review, contract analysis
+Why: 200K token context with strong attention to detail
+Advantage: Processes entire books, better accuracy on long documents
+
+GPT-4 Vision / Gemini Pro Vision
+
+Use Case: Image understanding, OCR, visual QA, diagram interpretation
+Why: Native vision capabilities
+Advantage: Extract data from screenshots, analyze charts, describe images
+
+
+9. For Prompt Engineering & Testing
+LangSmith
+
+Use Case: Debugging LLM chains, tracking production performance
+Why: Built by LangChain team, deep integration
+Advantage: Trace every step, compare outputs, dataset management
+
+PromptLayer
+
+Use Case: Prompt versioning, A/B testing, analytics
+Why: Provider-agnostic monitoring
+Advantage: Track costs across providers, prompt registry
+
+OpenAI Playground / Anthropic Console
+
+Use Case: Rapid prompt iteration, testing parameters
+Why: Official tools with full feature access
+Advantage: Test before coding, compare models side-by-side
+
+
+10. For Fine-tuning & Customization
+OpenAI Fine-tuning (GPT-3.5/4)
+
+Use Case: Domain-specific tasks, consistent output formatting
+Why: Improve performance on specific use cases
+Advantage: Better than prompting alone, reduced tokens needed
+
+HuggingFace + LoRA/QLoRA
+
+Use Case: Custom models for specialized domains
+Why: Full control, can use open models (Llama, Mistral)
+Advantage: No vendor lock-in, complete customization
+
+
+My Decision Framework:
+PriorityTool ChoiceSpeed criticalGroq API, Claude HaikuCost criticalGPT-3.5, Haiku, Open SourceQuality criticalClaude Opus, GPT-4, Gemini ProContext heavyGemini 1.5 Pro, Claude (200K)MultimodalGPT-4V, Gemini Pro VisionProduction reliabilityOpenAI API, Claude APIPrivacy/On-premiseOpen source via Ollama/HFCoding assistanceCursor, Copilot, ClaudeDocumentationGemini 1.5 Pro
+
+Context requirements (Gemini for large, Claude for complex)
+Cost constraints (Open source for high volume, 3.5/Haiku for simple)
+Latency needs (Groq for real-time, standard APIs for async)
+Quality requirements (Opus/GPT-4 for critical, cheaper models for drafts)
+Infrastructure (APIs for speed, self-hosted for privacy)
+
+

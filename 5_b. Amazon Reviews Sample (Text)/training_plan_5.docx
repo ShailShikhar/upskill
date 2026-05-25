@@ -1,0 +1,154 @@
+COMPLETE TASK LIST — DATASET 5
+________________________________________
+1. Data Ingestion & Parsing (Schema Discovery)
+•	Load raw text files
+•	Load JSON lines logs
+•	Load nested JSON blobs
+•	Parse JSON safely
+•	Handle malformed records
+•	Detect schema variability
+•	Flatten nested fields
+•	Preserve raw payloads
+•	Validate encoding (UTF-8 issues)
+•	Track ingestion errors explicitly
+🚨 Dataset 4 trap avoided: there may be no keys yet.
+________________________________________
+2. Schema Inference & Structural Validation
+•	Infer field names dynamically
+•	Detect optional vs mandatory fields
+•	Detect type instability across records
+•	Resolve mixed-type columns
+•	Version inferred schemas
+•	Schema drift detection
+•	Field frequency analysis
+•	Structural completeness metrics
+________________________________________
+3. Text Understanding & Hygiene
+•	Language detection
+•	Case normalization
+•	Unicode normalization
+•	Punctuation handling
+•	Stopword handling
+•	Tokenization strategy comparison
+•	Lemmatization vs stemming
+•	Noise detection (templated spam)
+•	Text length diagnostics
+•	Profanity / toxicity flags (diagnostic)
+________________________________________
+4. Log Semantics & Event Validation
+•	Define event taxonomy
+•	Validate event ordering
+•	Detect missing start/end events
+•	Sessionization
+•	Latency analysis
+•	Duplicate event detection
+•	Clock skew correction
+•	Client vs server timestamp reconciliation
+•	Event sparsity analysis
+________________________________________
+5. Missing Data in Semi-Structured Context
+•	Structural missingness vs absent fields
+•	Null vs empty vs undefined
+•	Missingness frequency per field
+•	Missingness as signal detection
+•	Field-presence indicators
+•	Imputation feasibility assessment
+________________________________________
+6. Combining Unstructured with Structured Data
+•	Extract join keys from text/logs
+•	Validate join feasibility
+•	Left joins vs enrichment joins
+•	Time-aware joins (as-of)
+•	Partial key joins
+•	Join failure diagnostics
+•	Post-join row inflation checks
+________________________________________
+7. Outlier Detection (Unstructured)
+•	Text length outliers
+•	Rare token detection
+•	Event burst anomalies
+•	Schema anomaly detection
+•	Unusual JSON depth detection
+________________________________________
+8. Statistical Exploration (Derived Features)
+•	Token frequency distributions
+•	Zipf law verification
+•	Vocabulary growth curves
+•	Event frequency distributions
+•	Session length distributions
+•	Co-occurrence analysis
+________________________________________
+9. Visualization for Unstructured Data
+•	Token frequency plots
+•	Word clouds (diagnostic only)
+•	Event timelines
+•	Heatmaps of field presence
+•	Session funnels
+•	Schema evolution plots
+________________________________________
+10. Feature Engineering — Text
+•	Bag-of-words
+•	TF-IDF
+•	N-grams
+•	Character-level features
+•	Topic modeling (LDA/NMF)
+•	Readability metrics
+•	Sentiment scores
+•	Pretrained embeddings (BERT/fastText)
+•	Text quality flags
+________________________________________
+11. Feature Engineering — Logs & JSON
+•	Event counts
+•	Event ratios
+•	Session features
+•	Temporal decay features
+•	Sequence length features
+•	Transition probabilities
+•	Aggregated behavioral metrics
+________________________________________
+12. Encoding & Vectorization
+•	Vocabulary pruning
+•	Dimensionality control
+•	Hashing vectorizers
+•	Collision diagnostics
+•	Embedding pooling strategies
+•	Drift-aware vocabulary management
+________________________________________
+13. Feature Selection & Dimensionality Reduction
+•	Variance thresholding (sparse)
+•	Chi-square tests
+•	Mutual information
+•	L1 regularization
+•	Truncated SVD
+•	Topic stability checks
+________________________________________
+14. Target Construction (Often Overlooked)
+•	Label extraction from logs
+•	Time-aligned target creation
+•	No-future-data enforcement
+•	Label noise analysis
+•	Weak supervision diagnostics
+________________________________________
+15. Dataset Splitting (Sequence-Aware)
+•	Time-based splits
+•	Session-based splits
+•	User-based splits
+•	Leakage detection via memorization
+•	Stratification feasibility analysis
+________________________________________
+16. Modeling & Evaluation
+•	Naive baselines (majority / keyword)
+•	Linear models on sparse features
+•	Tree models on aggregated features
+•	Neural models on embeddings
+•	Error analysis by text length
+•	Drift sensitivity analysis
+________________________________________
+What This Dataset Teaches That All Others Cannot
+•	Schema is probabilistic
+•	Missingness can be structural
+•	Text cleaning is feature engineering
+•	Joins can be inferred, not declared
+•	Leakage hides in timestamps inside text
+•	Overfitting is dangerously easy
+
