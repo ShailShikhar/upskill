@@ -1,0 +1,129 @@
+Corrected Training Plan (Aligned to THIS Dataset)
+1. Data Loading & Basic Temporal Validation
+•	Load Walmart weekly sales dataset 
+•	Inspect schema and datatypes 
+•	Parse Date 
+•	Sort by Store and Date 
+•	Validate weekly temporal ordering 
+•	Detect duplicate (Store, Date) records 
+•	Verify weekly frequency consistency 
+•	Check missing weeks per store 
+________________________________________
+2. Dataset Understanding
+•	Define target: Weekly_Sales 
+•	Identify exogenous variables: 
+o	Temperature 
+o	Fuel_Price 
+o	CPI 
+o	Unemployment 
+o	Holiday_Flag 
+•	Define forecasting horizon: 
+o	1-week ahead forecasting 
+•	Identify causal vs non-causal features 
+________________________________________
+3. Data Quality Checks
+•	Missing value analysis 
+•	Negative sales detection 
+•	Outlier sales spikes 
+•	Holiday consistency checks 
+•	Sudden regime shift detection 
+•	Store-level distribution consistency 
+________________________________________
+4. Exploratory Time-Series Analysis
+•	Store-wise sales visualization 
+•	Trend analysis 
+•	Seasonality analysis 
+•	Rolling averages 
+•	Rolling variance 
+•	STL decomposition 
+•	ACF/PACF analysis 
+Useful formulas:
+yt=Tt+St+Rty_t = T_t + S_t + R_tyt=Tt+St+Rt
+________________________________________
+5. Temporal Feature Engineering
+Core features:
+Lag Features
+•	Sales lag 1 
+•	Sales lag 4 
+•	Sales lag 12 
+•	Sales lag 52 
+Example:
+Lagk=yt−kLag_k = y_{t-k}Lagk=yt−k
+Rolling Features
+•	Rolling mean 
+•	Rolling std 
+•	Rolling min/max 
+Example:
+RollingMeank=1k∑i=1kyt−iRollingMean_k = \frac{1}{k}\sum_{i=1}^{k} y_{t-i}RollingMeank=k1∑i=1kyt−i
+Calendar Features
+•	Month 
+•	Quarter 
+•	Week-of-year 
+•	Holiday flag 
+Trend Features
+•	Expanding mean 
+•	Time index 
+________________________________________
+6. Missing Data Handling
+•	Forward fill exogenous variables if needed 
+•	Interpolation for macroeconomic indicators 
+•	Missingness indicators 
+•	Leakage-safe imputation 
+________________________________________
+7. Outlier Handling
+•	Store-wise anomaly detection 
+•	Seasonal-aware outlier detection 
+•	Winsorization experiments 
+•	Robust scaling comparison 
+________________________________________
+8. Feature Selection
+•	Correlation analysis 
+•	Lag importance analysis 
+•	Permutation importance 
+•	Multicollinearity checks 
+________________________________________
+9. Dataset Splitting (CRITICAL)
+DO NOT use random split.
+Use:
+•	Time-based train/validation/test split 
+•	Expanding-window validation 
+•	Rolling-window validation 
+Correct temporal split:
+Train<Validation<TestTrain < Validation < TestTrain<Validation<Test
+________________________________________
+10. Baseline Forecasting Models
+•	Last-value baseline 
+•	Seasonal naive baseline 
+•	Moving average baseline 
+Example:
+y^t+1=yt\hat{y}_{t+1}=y_ty^t+1=yt
+________________________________________
+11. Machine Learning Models
+Recommended:
+•	Linear Regression 
+•	Ridge/Lasso 
+•	Random Forest 
+•	XGBoost/LightGBM 
+•	CatBoost 
+•	Gradient Boosting 
+Optional:
+•	ARIMA/SARIMA 
+•	Prophet 
+Not recommended initially:
+•	Transformers 
+•	Complex deep learning models 
+Dataset is too small for heavy neural architectures.
+________________________________________
+12. Evaluation
+Use:
+•	RMSE 
+•	MAE 
+•	MAPE 
+•	WMAPE 
+Example:
+RMSE=1n∑i=1n(yi−y^i)2RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}RMSE=n1∑i=1n(yi−y^i)2
+Also evaluate:
+•	Per-store performance 
+•	Holiday-period performance 
+•	Residual autocorrelation 
+•	Stability across time
